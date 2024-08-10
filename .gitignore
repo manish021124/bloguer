@@ -30,6 +30,5 @@ backend/postgres_data/
 .env
 
 # Python
-venv/
 ENV/
 env/

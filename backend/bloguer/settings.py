@@ -136,3 +136,9 @@ CORS_ORIGIN_WHITELIST = [
   'https://localhost:3000',
   'https://localhost:8000',
 ]
+
+REST_FRAMEWORK = {
+  'DEFAULT_PERMISSION_CLASSES': [
+    'rest_framework.permissions.AllowAny',
+  ]
+}
