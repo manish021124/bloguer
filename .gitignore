@@ -1,0 +1,35 @@
+# Node modules and build artifacts for Next.js
+frontend/bloguer/node_modules/
+frontend/bloguer/.next/
+frontend/bloguer/.env
+
+# Python virtual environment and bytecode
+backend/venv/
+*.pyc
+__pycache__/
+*.db
+*.sqlite3
+local_settings.py
+media/
+staticfiles/
+
+# PostgreSQL data
+backend/postgres_data/
+
+# IDE and editor-specific files
+*.swp
+*.sublime-project
+*.sublime-workspace
+.idea/
+.vscode/
+
+# Log files
+*.log
+
+# Environment variables
+.env
+
+# Python
+venv/
+ENV/
+env/
