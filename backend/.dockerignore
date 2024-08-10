@@ -1,0 +1,27 @@
+# Ignore Python bytecode
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+
+# Ignore Django migration files
+**/migrations/
+
+# Ignore virtual environment
+venv/
+.env/
+
+# Ignore local development and IDE files
+.vscore/
+
+# Ignore test files and directories
+tests/
+*.log
+
+.git
+.gitignore
+
+Dockerfile
+.dockerignore
+.docker-compose.yml
+
