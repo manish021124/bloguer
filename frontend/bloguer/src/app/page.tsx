@@ -1,5 +1,11 @@
-export default function Home() {
+import PostsList from "@/components/PostsList";
+
+const Home: React.FC = async () => {
   return (
-    <h1 className="p-3">!</h1>
-  );
+    <div>
+      <PostsList />
+    </div>
+  )
 }
+
+export default Home;
