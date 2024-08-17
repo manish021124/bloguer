@@ -11,8 +11,8 @@ export function NavLinks() {
       <Link className={`link hover:text-white ${pathname === '/' ? 'text-white' : 'text-gray-400'}`} href="/">
         Home
       </Link>
-      <Link className={`link hover:text-white ${pathname === '/about' ? 'text-white' : 'text-gray-400'}`} href="/about">
-        About
+      <Link className={`link hover:text-white ${pathname === '/auth/login' ? 'text-white' : 'text-gray-400'}`} href="/auth/login">
+        Login
       </Link>
     </nav>
   )

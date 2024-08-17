@@ -15,7 +15,7 @@ async function fetchPosts(): Promise<Post[]> {
   }
 }
 
-const PostsList: React.FC = async () => {
+const PostsList = async () => {
   let posts: Post[] = []
   let error: string | null = null
 
@@ -35,7 +35,7 @@ const PostsList: React.FC = async () => {
           {posts.length > 0 ? (
             posts.map(post => (
               <li key={post.id}>
-                <h2>{post.title}</h2>
+                <h2>{post.id} {post.title}</h2>
                 <p>{post.content}</p>
               </li>
             ))
