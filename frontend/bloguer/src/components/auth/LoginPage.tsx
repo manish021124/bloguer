@@ -1,21 +1,33 @@
 'use client'
 
 import { FormEvent, useState } from "react"
-import { login } from "@/app/auth/login/login"
 import { useRouter } from "next/navigation"
-import { useDispatch } from "react-redux"
+import { useAppDispatch } from "@/lib/hooks";
+import { csrAxiosInstance } from "@/lib/axiosInstance";
+import { login as loginAction } from "@/lib/features/authSlice";
+
+async function login(username: string, password: string): Promise<string> {
+  try {
+    const response = await csrAxiosInstance.post('token/', { username, password })
+    return response.data.access
+  } catch (error) {
+    console.error('Login failed: ', error);
+    throw new Error('Login faile. Please try again.')
+  }
+}
 
 export function LoginPage() {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const router = useRouter()
   
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault()
     try {
-      await login(username, password, dispatch)
+      const token = await login(username, password)
+      dispatch(loginAction(token))
       router.push('/')
     } catch (error) {
       setError('Login failed. Please check  your credentials.')
@@ -27,8 +39,8 @@ export function LoginPage() {
       <h1>Login</h1>
       <form onSubmit={handleSubmit}>
         <div>
-          <label htmlFor="name">Name</label>
-          <input id="name" name="name" type="text" placeholder="Name" onChange={(e) => setUsername(e.target.value)} />
+          <label htmlFor="username">Username</label>
+          <input id="username" name="username" type="text" placeholder="Username" onChange={(e) => setUsername(e.target.value)} />
         </div>
         <div>
           <label htmlFor="password">Password</label>
