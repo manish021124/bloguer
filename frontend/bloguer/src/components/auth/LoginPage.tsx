@@ -3,18 +3,8 @@
 import { FormEvent, useState } from "react"
 import { useRouter } from "next/navigation"
 import { useAppDispatch } from "@/lib/hooks";
-import { csrAxiosInstance } from "@/lib/axiosInstance";
+import { login } from "@/app/auth/login/loginService"
 import { login as loginAction } from "@/lib/features/authSlice";
-
-async function login(username: string, password: string): Promise<string> {
-  try {
-    const response = await csrAxiosInstance.post('token/', { username, password })
-    return response.data.access
-  } catch (error) {
-    console.error('Login failed: ', error);
-    throw new Error('Login faile. Please try again.')
-  }
-}
 
 export function LoginPage() {
   const [username, setUsername] = useState('')
@@ -28,6 +18,7 @@ export function LoginPage() {
     try {
       const token = await login(username, password)
       dispatch(loginAction(token))
+      localStorage.setItem('token', token)
       router.push('/')
     } catch (error) {
       setError('Login failed. Please check  your credentials.')

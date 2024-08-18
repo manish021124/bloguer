@@ -1,6 +1,6 @@
 import { LoginPage } from "@/components/auth/LoginPage";
 
-const Login: React.FC = async () => {
+const Login: React.FC = () => {
   return (
     <div>
       <LoginPage />
