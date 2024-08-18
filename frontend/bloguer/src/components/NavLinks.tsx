@@ -18,9 +18,14 @@ export function NavLinks() {
           Logout
         </Link>
       ) : (
-        <Link className={`link hover:text-white ${pathname === '/auth/login' ? 'text-white' : 'text-gray-400'}`} href="/auth/login">
-          Login
-        </Link>
+        <div className='space-x-4'>
+          <Link className={`link hover:text-white ${pathname === '/auth/signup' ? 'text-white' : 'text-gray-400'}`} href="/auth/signup">
+            Signup
+          </Link>
+          <Link className={`link hover:text-white ${pathname === '/auth/login' ? 'text-white' : 'text-gray-400'}`} href="/auth/login">
+            Login
+          </Link>
+        </div>
       )
       }
     </nav>
