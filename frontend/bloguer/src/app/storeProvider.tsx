@@ -6,12 +6,12 @@ import { createStore, AppStore } from "../lib/store"
 import { setAuthState } from '@/lib/features/authSlice'
 
 export default function StoreProvider({
-  token,
-  isAuthenticated,
+  token = '',
+  isAuthenticated = false,
   children
 }: {
-  token: string
-  isAuthenticated: boolean
+  token?: string
+  isAuthenticated?: boolean
   children: React.ReactNode
 }) {
   const storeRef = useRef<AppStore>(createStore())

@@ -1,10 +1,10 @@
 import PostsList from "@/components/PostsList";
-import IsAuthenticated from "./auth/login/IsAuthenticated";
+import AuthCheck from "./auth/login/AuthCheck";
 
-const Home: React.FC = async () => {
+const Home: React.FC = () => {
   return (
     <div>
-      <IsAuthenticated />
+      <AuthCheck />
       <PostsList />
     </div>
   )

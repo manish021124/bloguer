@@ -3,14 +3,14 @@
 import { RootState } from "@/lib/store"
 import { useAppSelector } from "@/lib/hooks"
 
-export default function IsAuthenticated() {
+export default function AuthCheck() {
   const isAuthenticated = useAppSelector((state: RootState) => state.auth.isAuthenticated)
   const token = useAppSelector((state: RootState) => state.auth.token)
 
-  return(
+  return (
     <>
-      <p>isauth: {isAuthenticated ? 'true' : 'false'}</p>
-      <p>token: {token}</p>
+      {isAuthenticated ? <p>true</p> : <p>false</p>}
+      <p>{token}</p>
     </>
   )
 }
