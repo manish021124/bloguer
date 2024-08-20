@@ -2,7 +2,7 @@ import { csrAxiosInstance } from "@/lib/axiosInstance";
 
 export async function login(username: string, password: string): Promise<string> {
   try {
-    const response = await csrAxiosInstance.post('token/', { username, password })
+    const response = await csrAxiosInstance.post<{ access: string }>('token/', { username, password })
     return response.data.access
   } catch (error) {
     console.error('Login failed: ', error);

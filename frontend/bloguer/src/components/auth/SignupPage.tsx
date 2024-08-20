@@ -6,7 +6,7 @@ import { csrAxiosInstance } from "@/lib/axiosInstance";
 
 export async function signup(email: string, username: string, password: string): Promise<string> {
   try {
-    const response = await csrAxiosInstance.post('auth/users/', { email, username, password })
+    const response = await csrAxiosInstance.post<{ access: string }>('auth/users/', { email, username, password })
     return response.data.access
   } catch (error) {
     console.error('SignUp failed: ', error)
@@ -15,14 +15,15 @@ export async function signup(email: string, username: string, password: string):
 }
 
 export function SignupPage() {
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
-  const [email, setEmail] = useState('')
-  const [error, setError] = useState('')
+  const [username, setUsername] = useState<string>('')
+  const [password, setPassword] = useState<string>('')
+  const [email, setEmail] = useState<string>('')
+  const [error, setError] = useState<string>('')
   const router = useRouter()
 
-  const handleSubmit = async (event: FormEvent) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
+    setError('')
     try {
       await signup(email, username, password)
       router.push('/auth/login')

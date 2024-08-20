@@ -6,7 +6,7 @@ import { useAppDispatch } from "@/lib/hooks";
 import { logout } from "@/lib/features/authSlice";
 
 export function LogoutPage() {
-  const [error, setError] = useState('')
+  const [error, setError] = useState<string>('')
   const dispatch = useAppDispatch()
   const router = useRouter()
 

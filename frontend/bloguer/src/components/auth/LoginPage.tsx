@@ -6,17 +6,24 @@ import { useAppDispatch } from "@/lib/hooks";
 import { login } from "@/app/auth/login/loginService"
 import { login as loginAction } from "@/lib/features/authSlice";
 
+interface LoginState {
+  username: string;
+  password: string;
+  error: string | null;
+}
+
 export function LoginPage() {
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
-  const [error, setError] = useState('')
+  const [username, setUsername] = useState<LoginState["username"]>('')
+  const [password, setPassword] = useState<LoginState["password"]>('')
+  const [error, setError] = useState<LoginState["error"]>('')
   const dispatch = useAppDispatch()
   const router = useRouter()
   
-  const handleSubmit = async (event: FormEvent) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>): Promise<void> => {
     event.preventDefault()
+    setError(null)
     try {
-      const token = await login(username, password)
+      const token: string = await login(username, password)
       dispatch(loginAction(token))
       localStorage.setItem('token', token)
       router.push('/')
