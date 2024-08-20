@@ -1,4 +1,5 @@
 import { ssrAxiosInstance } from "@/lib/axiosInstance";
+import Link from "next/link";
 
 interface Post {
   id: number;
@@ -24,7 +25,7 @@ const PostsList = async () => {
   } catch (err) {
     error = (err as Error).message
   }
-  
+
   return (
     <div>
       <h1>Posts</h1>
@@ -35,7 +36,9 @@ const PostsList = async () => {
           {posts.length > 0 ? (
             posts.map(post => (
               <li key={post.id}>
-                <h2>{post.id} {post.title}</h2>
+                <Link href={`/post/${post.id}`}>
+                  <h2>{post.id} {post.title}</h2>
+                </Link>
                 <p>{post.content}</p>
               </li>
             ))
