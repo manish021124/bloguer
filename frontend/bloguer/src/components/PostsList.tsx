@@ -3,6 +3,7 @@ import Link from "next/link";
 
 interface Post {
   id: number;
+  author_name: string;
   title: string;
   content: string;
 }
@@ -35,12 +36,15 @@ const PostsList = async () => {
         <ul>
           {posts.length > 0 ? (
             posts.map(post => (
-              <li key={post.id}>
-                <Link href={`/post/${post.id}`}>
-                  <h2>{post.id} {post.title}</h2>
-                </Link>
-                <p>{post.content}</p>
-              </li>
+              <div className="py-3">
+                <li key={post.id}>
+                  <p>{post.author_name}</p>
+                  <Link href={`/post/${post.id}`}>
+                    <h2>{post.title}</h2>
+                  </Link>
+                  <p>{post.content}</p>
+                </li>
+              </div>
             ))
           ) : (
             <p>No posts available.</p>
