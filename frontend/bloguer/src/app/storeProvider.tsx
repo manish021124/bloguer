@@ -6,11 +6,13 @@ import { createStore, AppStore } from "../lib/store"
 import { setAuthState } from '@/lib/features/authSlice'
 
 export default function StoreProvider({
-  token = '',
+  accessToken = '',
+  refreshToken = '',
   isAuthenticated = false,
   children
 }: {
-  token?: string
+  accessToken?: string
+  refreshToken?: string
   isAuthenticated?: boolean
   children: React.ReactNode
 }) {
@@ -18,16 +20,18 @@ export default function StoreProvider({
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-    const persistedToken = localStorage.getItem('token')
-    const isUserAuthenticated = !!persistedToken
+    const persistedAccessToken = localStorage.getItem('access_token')
+    const persistedRefreshToken = localStorage.getItem('refresh_token')
+    const isUserAuthenticated = !!persistedAccessToken
 
     storeRef.current.dispatch(setAuthState({
-      token: persistedToken || token || '',
+      access_token: persistedAccessToken || accessToken || '',
+      refresh_token: persistedRefreshToken || refreshToken || '',
       isAuthenticated: isUserAuthenticated || isAuthenticated,
     }))
 
     setIsLoading(false)
-  }, [token, isAuthenticated])
+  }, [accessToken, refreshToken, isAuthenticated])
 
   if (isLoading) {
     return <div>Loading...</div>

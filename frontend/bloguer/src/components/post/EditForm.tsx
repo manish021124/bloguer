@@ -3,6 +3,7 @@
 import { ChangeEvent, FormEvent, useState } from "react"
 import { csrAxiosInstance } from "@/lib/axiosInstance"
 import { AxiosError } from "axios"
+import { refreshAccessToken } from "@/app/auth/login/loginService"
 
 interface PostData {
   title: string;
@@ -15,20 +16,32 @@ interface EditFormProps {
 }
 
 export const editPost = async (postId: number, postData: PostData): Promise<PostData> => {
-  const token = localStorage.getItem('token')
+  const accessToken = localStorage.getItem('access_token')
 
-  if (!token) throw new Error("User not authenticated")
+  if (!accessToken) throw new Error("User not authenticated")
 
   try {
     const response = await csrAxiosInstance.put<PostData>(`post/${postId}/`, postData, {
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${accessToken}`,
       },
     })
     return response.data
   } catch (error) {
     if (error instanceof AxiosError && error.response) {
-    throw new Error (error.response.data.message || 'Failed to edit post.')
+      if (error.response.status === 401 ) {
+        const newAccessToken = await refreshAccessToken()
+
+        if (newAccessToken) {
+          const retryResponse = await csrAxiosInstance.put<PostData>(`post/${postId}/`, postData, {
+            headers: {
+              Authorization: `Bearer ${newAccessToken}`,
+            },
+          })
+          return retryResponse.data
+        }
+      }
+      throw new Error (error.response.data.message || 'Failed to edit post.')
     }
     throw new Error('Failed to edit post')
   }

@@ -23,9 +23,10 @@ export function LoginPage() {
     event.preventDefault()
     setError(null)
     try {
-      const token: string = await login(username, password)
-      dispatch(loginAction(token))
-      localStorage.setItem('token', token)
+      const { access, refresh } = await login(username, password)
+      dispatch(loginAction(access))
+      localStorage.setItem('access_token', access)
+      localStorage.setItem('refresh_token', refresh)
       router.push('/')
     } catch (error) {
       setError('Login failed. Please check  your credentials.')
