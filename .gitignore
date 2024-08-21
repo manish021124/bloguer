@@ -6,7 +6,9 @@ frontend/bloguer/.env
 # Python virtual environment and bytecode
 backend/venv/
 *.pyc
-backend/__pycache__/
+backend/bloguer/__pycache__/
+backend/posts/__pycache__/
+backend/posts/migrations/
 *.db
 *.sqlite3
 local_settings.py
