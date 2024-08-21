@@ -13,6 +13,7 @@ interface PostData {
 interface EditFormProps {
   postId: number;
   initialData: PostData;
+  onUpdate: (position: PostData) => Promise<void>
 }
 
 export const editPost = async (postId: number, postData: PostData): Promise<PostData> => {
@@ -47,7 +48,7 @@ export const editPost = async (postId: number, postData: PostData): Promise<Post
   }
 }
 
-const EditForm: React.FC<EditFormProps> = ({ postId, initialData }) => {
+const EditForm: React.FC<EditFormProps> = ({ postId, initialData, onUpdate }) => {
   const [formData, setFormData] = useState<PostData>(initialData)
   const [error, setError] = useState<string | null>(null)
   const [success, setSuccess] = useState<boolean>(false)
@@ -65,7 +66,7 @@ const EditForm: React.FC<EditFormProps> = ({ postId, initialData }) => {
     setSuccess(false)
     
     try {
-      await editPost(postId, formData)
+      await onUpdate(formData)
       setSuccess(true)
     } catch (err) {
       if (err instanceof Error) setError(err.message)

@@ -3,13 +3,10 @@
 import { csrAxiosInstance } from "@/lib/axiosInstance";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-
-interface Post {
-  id: number;
-  title: string;
-  content: string;
-  created_at: string;
-}
+import { handleDelete } from "@/components/post/deletePost";
+import { Post, setPosts } from "@/lib/features/postSlice";
+import { useAppDispatch, useAppSelector } from "@/lib/hooks";
+import { RootState } from "@/lib/store";
 
 async function fetchPost(postId: number): Promise<Post> {
   try {
@@ -23,36 +20,40 @@ async function fetchPost(postId: number): Promise<Post> {
 export default function PostDetail () {
   const params = useParams()
   const router = useRouter()
+  const dispatch = useAppDispatch()
 
-  const [post, setPost] = useState<Post | null>(null)
-  const [error, setError] = useState<string | null>(null)
   const postId = params.postId ? parseInt(params.postId as string) : null
+
+  const post = useAppSelector((state: RootState) =>
+    state.post.posts?.find(p => p.id === postId)
+  )
+  const [error, setError] = useState<string | null>(null)
+  const [isDeleted, setIsDeleted] = useState(false)
 
   useEffect(() => {
     const loadPost = async () => {
-      if (postId !== null) {
+      if (postId !== null && !post) {
         try {
           const fetchedPost = await fetchPost(postId)
-          setPost(fetchedPost)
+          dispatch(setPosts([fetchedPost]))
         } catch (err) {
           setError((err as Error).message)
         }
-      } else {
+      } else if (postId === null) {
         setError('Invalid post id.')
       }
     }
     loadPost()
-  }, [postId])
+  }, [postId, post, dispatch, isDeleted])
 
   const handleEdit = () => {
     if (post) {
-      const queryParams = new URLSearchParams({
-        title: post.title,
-        content: post.content,
-      }).toString()
-
-      router.push(`/post/edit/${post.id}?${queryParams}`)
+      router.push(`/post/edit/${post.id}`)
     }
+  }
+
+  const handleDeleteClick = async () => {
+    await handleDelete(postId, dispatch, router)
   }
 
   return (
@@ -65,7 +66,7 @@ export default function PostDetail () {
           <p>{post.content}</p>
           <p>{post.created_at}</p>
           <button onClick={handleEdit}>Edit Post</button>
-          <button onClick={() => router.push(`/post/delete/${post.id}`)}>Delete Post</button>
+          <button onClick={handleDeleteClick}>Delete Post</button>
         </>
       ) : (
         <p>Loading post...</p>
