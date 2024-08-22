@@ -44,9 +44,9 @@ const CreatePage: React.FC = () => {
   }
 
   return (
-    <div>
+    <>
       <CreateForm onSubmit={handleCreatePost} />
-    </div>
+    </>
   )
 }
 

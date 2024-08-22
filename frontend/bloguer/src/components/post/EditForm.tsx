@@ -30,7 +30,7 @@ export const editPost = async (postId: number, postData: PostData): Promise<Post
     return response.data
   } catch (error) {
     if (error instanceof AxiosError && error.response) {
-      if (error.response.status === 401 ) {
+      if (error.response.status === 401) {
         const newAccessToken = await refreshAccessToken()
 
         if (newAccessToken) {
@@ -42,7 +42,7 @@ export const editPost = async (postId: number, postData: PostData): Promise<Post
           return retryResponse.data
         }
       }
-      throw new Error (error.response.data.message || 'Failed to edit post.')
+      throw new Error(error.response.data.message || 'Failed to edit post.')
     }
     throw new Error('Failed to edit post')
   }
@@ -64,7 +64,7 @@ const EditForm: React.FC<EditFormProps> = ({ postId, initialData, onUpdate }) =>
     e.preventDefault()
     setError(null)
     setSuccess(false)
-    
+
     try {
       await onUpdate(formData)
       setSuccess(true)
@@ -75,13 +75,22 @@ const EditForm: React.FC<EditFormProps> = ({ postId, initialData, onUpdate }) =>
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input type="text" name="title" value={formData.title} onChange={handleInputChange} />
-      <textarea name="content" value={formData.content} onChange={handleInputChange} />
-      <button type="submit">Update Post</button>
-      {error && <p>Error: {error}</p>}
-      {success && <p>Post updated successfully!</p>}
-    </form>
+    <div className="mt-11 px-5 py-20 bg-[#1b1f23] rounded-md">
+      <h1 className="pb-11">Edit Post</h1>
+      <form onSubmit={handleSubmit} className="flex flex-col gap-y-4">
+        <div className="flex flex-col">
+          <label>Title</label>
+          <input type="text" name="title" value={formData.title} onChange={handleInputChange} className="h-9 px-2 bg-transparent border border-white rounded-lg" />
+        </div>
+        <div className="flex flex-col">
+          <label>Content</label>
+          <textarea name="content" value={formData.content} onChange={handleInputChange} className="h-24 px-2 bg-transparent border border-white rounded-lg" />
+        </div>
+        <button type="submit" className="mt-11">Update Post</button>
+        {error && <p>Error: {error}</p>}
+        {success && <p>Post updated successfully!</p>}
+      </form>
+    </div>
   )
 }
 

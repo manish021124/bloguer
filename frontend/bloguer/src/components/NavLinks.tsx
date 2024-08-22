@@ -15,7 +15,7 @@ export function NavLinks() {
           bloguer
         </Link>
       </div>
-      <div className='space-x-4'>
+      <div className='flex space-x-4'>
         <Link className={`link hover:text-white ${pathname === '/' ? 'text-white' : 'text-gray-400'}`} href="/">
           Home
         </Link>

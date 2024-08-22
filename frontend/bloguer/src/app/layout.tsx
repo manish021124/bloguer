@@ -20,7 +20,11 @@ export default function RootLayout({
       <body className={inter.className}>
         <StoreProvider>
           <NavLinks />
-          <main>{children}</main>
+          <main>
+            <div className="container mx-auto max-w-xl py-5">
+              {children}
+            </div>
+          </main>
         </StoreProvider>
       </body>
     </html>

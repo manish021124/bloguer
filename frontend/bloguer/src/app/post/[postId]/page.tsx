@@ -57,20 +57,21 @@ export default function PostDetail () {
   }
 
   return (
-    <div>
+    <>
       {error ? (
         <p>{error}</p>
       ) : post ? (
-        <>
-          <h1>{post.title}</h1>
+        <div className="p-3 bg-[#1b1f23] rounded-md">
+          <h2>{post.title}</h2>
+          <p>{post.author_name}</p>
           <p>{post.content}</p>
           <p>{post.created_at}</p>
           <button onClick={handleEdit}>Edit Post</button>
           <button onClick={handleDeleteClick}>Delete Post</button>
-        </>
+        </div>
       ) : (
         <p>Loading post...</p>
       )}
-    </div>
+    </>
   )
 }

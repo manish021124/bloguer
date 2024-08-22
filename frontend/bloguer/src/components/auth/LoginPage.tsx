@@ -34,19 +34,19 @@ export function LoginPage() {
   }
 
   return (
-    <div>
-      <h1>Login</h1>
-      <form onSubmit={handleSubmit}>
-        <div>
+    <div className="mt-11 px-5 py-20 bg-[#1b1f23] rounded-md">
+      <h1 className="pb-11">Log In</h1>
+      <form onSubmit={handleSubmit} className="flex flex-col gap-y-4">
+        <div className="flex flex-col">
           <label htmlFor="username">Username</label>
-          <input id="username" name="username" type="text" placeholder="Username" onChange={(e) => setUsername(e.target.value)} />
+          <input id="username" type="text" name="username" placeholder="Username" onChange={(e) => setUsername(e.target.value)} className="h-9 px-2 bg-transparent border border-white rounded-lg" />
         </div>
-        <div>
+        <div className="flex flex-col">
           <label htmlFor="password">Password</label>
-          <input id="password" name="password" type="password" onChange={(e) => setPassword(e.target.value)} />
+          <input id="password" type="password" name="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} className="h-9 px-2 bg-transparent border border-white rounded-lg" />
         </div>
-        <button type="submit">Log In</button>
-        {error && <p style={{ color: 'red' }}>{error}</p>}
+        <button type="submit" className="mt-11">Log In</button>
+        {error && <p>Error: {error}</p>}
       </form>
     </div>
   )

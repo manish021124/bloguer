@@ -37,7 +37,7 @@ const PostsList = () => {
 
 
   return (
-    <div>
+    <>
       {error ? (
         <p>{error}</p>
       ) : (
@@ -56,7 +56,7 @@ const PostsList = () => {
                       <span>{post.created_at}</span>
                     </div>
                   </div>
-                  <p className="text-sm">{post.content}</p>
+                  <p className="text-sm text-justify">{post.content}</p>
                 </li>
               </div>
             ))
@@ -65,7 +65,7 @@ const PostsList = () => {
           )}
         </ul>
       )}
-    </div>
+    </>
   )
 }
 

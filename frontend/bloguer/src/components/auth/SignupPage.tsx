@@ -33,21 +33,24 @@ export function SignupPage() {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
-        <label htmlFor="username">Username</label>
-        <input id="username" name="username" type="text" placeholder="Username" onChange={(e) => setUsername(e.target.value)} />
-      </div>
-      <div>
-        <label htmlFor="email">Email</label>
-        <input id="email" name="email" type="email" placeholder="Email" onChange={(e) => setEmail(e.target.value)} />
-      </div>
-      <div>
-        <label htmlFor="password">Password</label>
-        <input id="password" name="password" type="password" onChange={(e) => setPassword(e.target.value)} />
-      </div>
-      <button type="submit">Sign Up</button>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-    </form>
+    <div className="mt-11 px-5 py-20 bg-[#1b1f23] rounded-md">
+      <h1 className="pb-11">Sign Up</h1>
+      <form onSubmit={handleSubmit} className="flex flex-col gap-y-4">
+        <div className="flex flex-col">
+          <label htmlFor="username">Username</label>
+          <input id="username" type="text" name="username" placeholder="Username" onChange={(e) => setUsername(e.target.value)} className="h-9 px-2 bg-transparent border border-white rounded-lg" />
+        </div>
+        <div className="flex flex-col">
+          <label htmlFor="email">Email</label>
+          <input id="email" type="email" name="email" placeholder="Email" onChange={(e) => setEmail(e.target.value)} className="h-9 px-2 bg-transparent border border-white rounded-lg" />
+        </div>
+        <div className="flex flex-col">
+          <label htmlFor="password">Password</label>
+          <input id="password" type="password" name="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} className="h-9 px-2 bg-transparent border border-white rounded-lg" />
+        </div>
+        <button type="submit" className="mt-11">Sign Up</button>
+        {error && <p>Error: {error}</p>}
+      </form>
+    </div>
   )
 }
