@@ -24,11 +24,11 @@ const PostsList = () => {
   let error: string | null = null
 
   useEffect(() => {
-    const loadPosts = async() => {
+    const loadPosts = async () => {
       try {
         const fetchedPosts = await fetchPosts()
         dispatch(setPosts(fetchedPosts))
-      } catch(err) {
+      } catch (err) {
         error = (err as Error).message
       }
     }
@@ -38,20 +38,25 @@ const PostsList = () => {
 
   return (
     <div>
-      <h1>Posts</h1>
       {error ? (
         <p>{error}</p>
       ) : (
-        <ul>
+        <ul className="flex flex-col gap-y-4">
           {posts.length > 0 ? (
             posts.map(post => (
-              <div className="py-3" key={post.id}>
+              <div className="p-3 bg-[#1b1f23] rounded-md" key={post.id}>
                 <li>
-                  <p>{post.author_name}</p>
-                  <Link href={`/post/${post.id}`}>
-                    <h2>{post.title}</h2>
-                  </Link>
-                  <p>{post.content}</p>
+                  <div className="pb-3">
+                    <Link href={`/post/${post.id}`}>
+                      <h3>{post.title}</h3>
+                    </Link>
+                    <div className="text-xs font-light flex gap-x-1">
+                      <span>{post.author_name}</span>
+                      <span>.</span>
+                      <span>{post.created_at}</span>
+                    </div>
+                  </div>
+                  <p className="text-sm">{post.content}</p>
                 </li>
               </div>
             ))
