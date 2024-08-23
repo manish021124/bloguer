@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 
 export interface Post {
   id: number
+  author: number
   author_name: string
   title: string
   content: string

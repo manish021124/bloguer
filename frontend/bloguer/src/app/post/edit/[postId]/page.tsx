@@ -57,10 +57,10 @@ const EditPage = () => {
         !loading ? (
           <EditForm postId={postId} initialData={initialData} onUpdate={handleUpdate} />
         ) : (
-          <p>Loading ...</p>
+          <p className="text-center">Loading ...</p>
         )
       ) : (
-        <p>Invalid post id.</p>
+        <p className="text-center">Invalid post id.</p>
       )}
     </>
   )

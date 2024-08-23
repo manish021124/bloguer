@@ -22,6 +22,8 @@ export default function PostDetail() {
   const params = useParams()
   const router = useRouter()
   const dispatch = useAppDispatch()
+  const userId = useAppSelector((state) => state.auth.userId)
+  const isAuthenticated = useAppSelector((state) => state.auth.isAuthenticated)
 
   const postId = params.postId ? parseInt(params.postId as string) : null
 
@@ -30,6 +32,12 @@ export default function PostDetail() {
   )
   const [error, setError] = useState<string | null>(null)
   const [isDeleted, setIsDeleted] = useState(false)
+
+  useEffect(() => {
+    if (!isAuthenticated) {
+      router.push('/auth/login')
+    }
+  }, [isAuthenticated, router])
 
   useEffect(() => {
     const loadPost = async () => {
@@ -60,26 +68,31 @@ export default function PostDetail() {
   return (
     <>
       {error ? (
-        <p className="text-red-600">{error}</p>
-      ) : post ? (
-        <div className="px-5 py-20 bg-[#1b1f23] rounded-md" key={post.id}>
-          <h1 className="mb-11">Post Detail</h1>
-          <div className="pb-8">
-            <h3>{post.title}</h3>
-            <div className="text-xs font-light flex gap-x-1">
-              <span>{post.author_name}</span>
-              <span>.</span>
-              <span>{post.created_at}</span>
+        <p className="text-center text-red-600">{error}</p>
+      ) : !post ? (
+        <p className="text-center">Loading post...</p>
+      ) : !isAuthenticated ? (
+        <p className="text-center">Redirecting...</p>
+      ) : ( userId === post.author ? (
+          <div className="px-5 py-20 bg-[#1b1f23] rounded-md" key={post.id}>
+            <h1 className="mb-11">Post Detail</h1>
+            <div className="pb-8">
+              <h3>{post.title}</h3>
+              <div className="text-xs font-light flex gap-x-1">
+                <span>{post.author_name}</span>
+                <span>.</span>
+                <span>{post.created_at}</span>
+              </div>
+            </div>
+            <p className="text-sm text-justify">{post.content}</p>
+            <div className="flex justify-center gap-x-3">
+              <Button text="Edit" onClick={handleEdit} />
+              <Button text="Delete" onClick={handleDeleteClick} className="bg-red-700 hover:bg-red-600" />
             </div>
           </div>
-          <p className="text-sm text-justify">{post.content}</p>
-          <div className="flex justify-center gap-x-3">
-            <Button text="Edit" onClick={handleEdit} />
-            <Button text="Delete" onClick={handleDeleteClick} className="bg-red-700 hover:bg-red-600" />
-          </div>
-        </div>
-      ) : (
-        <p>Loading post...</p>
+        ) : (
+          <p className="m-5 text-center">You don't have access to this post!</p>
+        )
       )}
     </>
   )

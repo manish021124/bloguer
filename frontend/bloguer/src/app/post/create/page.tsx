@@ -1,15 +1,25 @@
 'use client'
 
-import { useAppDispatch } from "@/lib/hooks"
+import { useAppDispatch, useAppSelector } from "@/lib/hooks"
 import { Post, createPost } from "@/lib/features/postSlice"
 import { csrAxiosInstance } from "@/lib/axiosInstance"
 import { AxiosError } from "axios"
 import { refreshAccessToken } from "@/app/auth/login/loginService"
 import CreateForm from "@/components/post/CreateForm"
 import { PostInput } from "@/components/post/CreateForm"
+import { useRouter } from "next/navigation"
+import { useEffect } from "react"
 
 const CreatePage: React.FC = () => {
+  const isAuthenticated = useAppSelector((state) => state.auth.isAuthenticated)
   const dispatch = useAppDispatch()
+  const router = useRouter()
+
+  useEffect(() => {
+    if (!isAuthenticated) {
+      router.push('/auth/login')
+    }
+  }, [isAuthenticated, router])
 
   const handleCreatePost = async (postData: PostInput) => {
     const accessToken = localStorage.getItem('access_token')
@@ -45,7 +55,11 @@ const CreatePage: React.FC = () => {
 
   return (
     <>
-      <CreateForm onSubmit={handleCreatePost} />
+      {isAuthenticated ? (
+        <CreateForm onSubmit={handleCreatePost} />
+      ) : (
+        <p className="text-center">Redirecting...</p>
+      )}
     </>
   )
 }

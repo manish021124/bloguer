@@ -61,7 +61,7 @@ const PostsList = () => {
               </div>
             ))
           ) : (
-            <p>No posts available.</p>
+            <p className="text-center">No posts available.</p>
           )}
         </ul>
       )}

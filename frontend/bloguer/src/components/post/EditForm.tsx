@@ -1,10 +1,12 @@
 'use client'
 
-import { ChangeEvent, FormEvent, useState } from "react"
+import { ChangeEvent, FormEvent, useEffect, useState } from "react"
 import { csrAxiosInstance } from "@/lib/axiosInstance"
 import { AxiosError } from "axios"
 import { refreshAccessToken } from "@/app/auth/login/loginService"
 import Button from "../Button"
+import { useAppSelector } from "@/lib/hooks"
+import { useRouter } from "next/navigation"
 
 interface PostData {
   title: string;
@@ -54,6 +56,15 @@ const EditForm: React.FC<EditFormProps> = ({ postId, initialData, onUpdate }) =>
   const [error, setError] = useState<string | null>(null)
   const [success, setSuccess] = useState<boolean>(false)
 
+  const isAuthenticated = useAppSelector((state) => state.auth.isAuthenticated)
+  const router = useRouter()
+
+  useEffect(() => {
+    if (!isAuthenticated) {
+      router.push('/auth/login')
+    }
+  }, [isAuthenticated, router])
+
   const handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({
       ...formData,
@@ -76,7 +87,10 @@ const EditForm: React.FC<EditFormProps> = ({ postId, initialData, onUpdate }) =>
   }
 
   return (
-    <div className="mt-11 px-5 py-20 bg-[#1b1f23] rounded-md">
+    <>
+    {isAuthenticated ? (
+
+      <div className="mt-11 px-5 py-20 bg-[#1b1f23] rounded-md">
       <h1 className="pb-11">Edit Post</h1>
       <form onSubmit={handleSubmit} className="flex flex-col gap-y-4">
         <div className="flex flex-col">
@@ -94,6 +108,11 @@ const EditForm: React.FC<EditFormProps> = ({ postId, initialData, onUpdate }) =>
         {success && <p className="text-blue-600">Post updated successfully!</p>}
       </form>
     </div>
+    ) : (
+      <p className="text-center">Redirecting...</p>
+    )}
+    
+    </>
   )
 }
 

@@ -21,14 +21,13 @@ export function NavLinks() {
         </Link>
         {isAuthenticated ? (
           <div className='space-x-4'>
-          <Link className={`link hover:text-white ${pathname === '/post/create' ? 'text-white' : 'text-gray-400'}`} href="/post/create">
-            Create
-          </Link>
-          <Link className={`link hover:text-white ${pathname === '/auth/logout' ? 'text-white' : 'text-gray-400'}`} href="/auth/logout">
-            Logout
-          </Link>
-        </div>
-          
+            <Link className={`link hover:text-white ${pathname === '/post/create' ? 'text-white' : 'text-gray-400'}`} href="/post/create">
+              Create
+            </Link>
+            <Link className={`link hover:text-white ${pathname === '/auth/logout' ? 'text-white' : 'text-gray-400'}`} href="/auth/logout">
+              Logout
+            </Link>
+          </div>
         ) : (
           <div className='space-x-4'>
             <Link className={`link hover:text-white ${pathname === '/auth/signup' ? 'text-white' : 'text-gray-400'}`} href="/auth/signup">
