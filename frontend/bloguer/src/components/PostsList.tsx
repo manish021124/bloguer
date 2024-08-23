@@ -39,7 +39,7 @@ const PostsList = () => {
   return (
     <>
       {error ? (
-        <p>{error}</p>
+        <p className="text-red-600">{error}</p>
       ) : (
         <ul className="flex flex-col gap-y-4">
           {posts.length > 0 ? (

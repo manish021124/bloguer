@@ -60,15 +60,21 @@ export default function PostDetail() {
   return (
     <>
       {error ? (
-        <p>{error}</p>
+        <p className="text-red-600">{error}</p>
       ) : post ? (
-        <div className="p-3 bg-[#1b1f23] rounded-md">
-          <h2>{post.title}</h2>
-          <p>{post.author_name}</p>
-          <p>{post.content}</p>
-          <p>{post.created_at}</p>
+        <div className="px-5 py-20 bg-[#1b1f23] rounded-md" key={post.id}>
+          <h1 className="mb-11">Post Detail</h1>
+          <div className="pb-8">
+            <h3>{post.title}</h3>
+            <div className="text-xs font-light flex gap-x-1">
+              <span>{post.author_name}</span>
+              <span>.</span>
+              <span>{post.created_at}</span>
+            </div>
+          </div>
+          <p className="text-sm text-justify">{post.content}</p>
           <div className="flex justify-center gap-x-3">
-            <Button text="Edit" onClick={handleEdit} className="bg-blue-700 hover:bg-blue-600" />
+            <Button text="Edit" onClick={handleEdit} />
             <Button text="Delete" onClick={handleDeleteClick} className="bg-red-700 hover:bg-red-600" />
           </div>
         </div>
