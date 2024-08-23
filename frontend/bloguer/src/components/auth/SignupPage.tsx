@@ -3,6 +3,7 @@
 import { FormEvent, useState } from "react"
 import { useRouter } from "next/navigation"
 import { csrAxiosInstance } from "@/lib/axiosInstance";
+import Button from "../Button";
 
 export async function signup(email: string, username: string, password: string): Promise<string> {
   try {
@@ -48,8 +49,10 @@ export function SignupPage() {
           <label htmlFor="password">Password</label>
           <input id="password" type="password" name="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} className="h-9 px-2 bg-transparent border border-white rounded-lg" />
         </div>
-        <button type="submit" className="mt-11">Sign Up</button>
-        {error && <p>Error: {error}</p>}
+        <div className="mx-auto">
+          <Button text="Sign Up" />
+        </div>
+        {error && <p className="text-red-600">Error: {error}</p>}
       </form>
     </div>
   )

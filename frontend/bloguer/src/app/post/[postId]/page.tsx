@@ -3,10 +3,11 @@
 import { csrAxiosInstance } from "@/lib/axiosInstance";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { handleDelete } from "@/components/post/deletePost";
+import { handleDelete } from "@/app/post/[postId]/delete";
 import { Post, setPosts } from "@/lib/features/postSlice";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { RootState } from "@/lib/store";
+import Button from "@/components/Button";
 
 async function fetchPost(postId: number): Promise<Post> {
   try {
@@ -17,7 +18,7 @@ async function fetchPost(postId: number): Promise<Post> {
   }
 }
 
-export default function PostDetail () {
+export default function PostDetail() {
   const params = useParams()
   const router = useRouter()
   const dispatch = useAppDispatch()
@@ -66,8 +67,10 @@ export default function PostDetail () {
           <p>{post.author_name}</p>
           <p>{post.content}</p>
           <p>{post.created_at}</p>
-          <button onClick={handleEdit}>Edit Post</button>
-          <button onClick={handleDeleteClick}>Delete Post</button>
+          <div className="flex justify-center gap-x-3">
+            <Button text="Edit" onClick={handleEdit} className="bg-blue-700 hover:bg-blue-600" />
+            <Button text="Delete" onClick={handleDeleteClick} className="bg-red-700 hover:bg-red-600" />
+          </div>
         </div>
       ) : (
         <p>Loading post...</p>

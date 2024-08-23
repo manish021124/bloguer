@@ -4,6 +4,7 @@ import { ChangeEvent, FormEvent, useState } from "react"
 import { csrAxiosInstance } from "@/lib/axiosInstance"
 import { AxiosError } from "axios"
 import { refreshAccessToken } from "@/app/auth/login/loginService"
+import Button from "../Button"
 
 interface PostData {
   title: string;
@@ -86,9 +87,11 @@ const EditForm: React.FC<EditFormProps> = ({ postId, initialData, onUpdate }) =>
           <label>Content</label>
           <textarea name="content" value={formData.content} onChange={handleInputChange} className="h-24 px-2 bg-transparent border border-white rounded-lg" />
         </div>
-        <button type="submit" className="mt-11">Update Post</button>
-        {error && <p>Error: {error}</p>}
-        {success && <p>Post updated successfully!</p>}
+        <div className="mx-auto">
+          <Button text="Edit" />
+        </div>
+        {error && <p className="text-red-600">Error: {error}</p>}
+        {success && <p className="text-blue-600">Post updated successfully!</p>}
       </form>
     </div>
   )

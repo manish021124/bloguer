@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation"
 import { useAppDispatch } from "@/lib/hooks";
 import { login } from "@/app/auth/login/loginService"
 import { login as loginAction } from "@/lib/features/authSlice";
+import Button from "../Button";
 
 interface LoginState {
   username: string;
@@ -18,7 +19,7 @@ export function LoginPage() {
   const [error, setError] = useState<LoginState["error"]>('')
   const dispatch = useAppDispatch()
   const router = useRouter()
-  
+
   const handleSubmit = async (event: FormEvent<HTMLFormElement>): Promise<void> => {
     event.preventDefault()
     setError(null)
@@ -45,8 +46,10 @@ export function LoginPage() {
           <label htmlFor="password">Password</label>
           <input id="password" type="password" name="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} className="h-9 px-2 bg-transparent border border-white rounded-lg" />
         </div>
-        <button type="submit" className="mt-11">Log In</button>
-        {error && <p>Error: {error}</p>}
+        <div className="mx-auto">
+          <Button text="Log In" />
+        </div>
+        {error && <p className="text-red-600">Error: {error}</p>}
       </form>
     </div>
   )

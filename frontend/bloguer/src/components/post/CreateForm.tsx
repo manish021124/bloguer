@@ -1,6 +1,7 @@
 'use client'
 
 import { FormEvent, useState } from "react"
+import Button from "../Button";
 
 export interface PostInput {
   title: string;
@@ -45,9 +46,11 @@ const CreateForm: React.FC<CreateFormProps> = ({ onSubmit }) => {
             <label>Content</label>
             <textarea name="content" value={content} onChange={(e) => setContent(e.target.value)} className="h-24 px-2 bg-transparent border border-white rounded-lg" />
           </div>
-          <button type="submit" className="mt-11">Create Post</button>
-          {error && <p>Error: {error}</p>}
-          {success && <p>Post updated successfully!</p>}
+          <div className="mx-auto">
+            <Button type="submit" text="Create" />
+          </div>
+          {error && <p className="text-red-600">Error: {error}</p>}
+          {success && <p className="text-blue-600">Post updated successfully!</p>}
         </form>
       </div>
     </>
