@@ -3,6 +3,7 @@ import { csrAxiosInstance } from "@/lib/axiosInstance";
 export interface LoginResponse {
   access: string;
   refresh: string;
+  username: string;
 }
 
 export async function login(username: string, password: string): Promise<LoginResponse> {
@@ -11,6 +12,7 @@ export async function login(username: string, password: string): Promise<LoginRe
     return {
       access: response.data.access,
       refresh: response.data.refresh,
+      username: username,
     }
   } catch (error) {
     console.error('Login failed: ', error);

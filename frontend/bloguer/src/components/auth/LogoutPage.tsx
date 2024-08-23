@@ -16,6 +16,7 @@ export function LogoutPage() {
       dispatch(logout())
       localStorage.removeItem('access_token')
       localStorage.removeItem('refresh_token')
+      localStorage.removeItem('username')
       router.push('/')
     } catch (error) {
       setError('Logout failed. Please try again later.')

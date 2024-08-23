@@ -4,6 +4,11 @@ import { useEffect, useRef, useState } from 'react'
 import { Provider } from "react-redux"
 import { createStore, AppStore } from "../lib/store"
 import { setAuthState } from '@/lib/features/authSlice'
+import jwt, { JwtPayload } from 'jsonwebtoken'
+
+interface DecodedToken extends JwtPayload {
+  user_id?: number
+}
 
 export default function StoreProvider({
   accessToken = '',
@@ -22,9 +27,15 @@ export default function StoreProvider({
   useEffect(() => {
     const persistedAccessToken = localStorage.getItem('access_token')
     const persistedRefreshToken = localStorage.getItem('refresh_token')
+    const persistedUsername = localStorage.getItem('username')
     const isUserAuthenticated = !!persistedAccessToken
 
+    const decodedToken = persistedAccessToken ? jwt.decode(persistedAccessToken) as DecodedToken : null
+    const userId = decodedToken?.user_id || null
+
     storeRef.current.dispatch(setAuthState({
+      userId: userId,
+      username: persistedUsername || '',
       access_token: persistedAccessToken || accessToken || '',
       refresh_token: persistedRefreshToken || refreshToken || '',
       isAuthenticated: isUserAuthenticated || isAuthenticated,

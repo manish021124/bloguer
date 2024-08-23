@@ -6,6 +6,11 @@ import { useAppDispatch } from "@/lib/hooks";
 import { login } from "@/app/auth/login/loginService"
 import { login as loginAction } from "@/lib/features/authSlice";
 import Button from "../Button";
+import jwt, { JwtPayload } from 'jsonwebtoken'
+
+interface DecodedToken extends JwtPayload {
+  user_id?: number
+}
 
 interface LoginState {
   username: string;
@@ -25,9 +30,14 @@ export function LoginPage() {
     setError(null)
     try {
       const { access, refresh } = await login(username, password)
-      dispatch(loginAction(access))
+      
+      const decodedToken = jwt.decode(access) as DecodedToken
+      const userId = decodedToken?.user_id || null
+
+      dispatch(loginAction({ userId, username, access_token: access, refresh_token: refresh }))
       localStorage.setItem('access_token', access)
       localStorage.setItem('refresh_token', refresh)
+      localStorage.setItem('username', username)
       router.push('/')
     } catch (error) {
       setError('Login failed. Please check  your credentials.')
