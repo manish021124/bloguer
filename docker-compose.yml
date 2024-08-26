@@ -17,11 +17,14 @@ services:
       - db
 
   frontend:
-    build: ./frontend/bloguer
+    build: 
+      context: ./frontend/bloguer
+      dockerfile: Dockerfile
     ports:
       - "3000:3000"
     volumes:
       - ./frontend/bloguer:/app
+      - /app/node_modules
     command: ["npm", "run", "dev"]
 
 volumes:
