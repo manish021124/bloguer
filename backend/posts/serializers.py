@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Post
+from .models import Post, CustomUser
 
 class PostSerializer(serializers.ModelSerializer):
   author_name = serializers.CharField(source='author.username', read_only=True)
@@ -13,3 +13,10 @@ class PostSerializer(serializers.ModelSerializer):
     # set the author to the current user
     validated_data['author'] = self.context['request'].user
     return super().create(validated_data)
+  
+
+class CustomUserSerialzer(serializers.ModelSerializer):
+  class Meta:
+    model = CustomUser
+    fields = ['id', 'username', 'email', 'first_name', 'last_name', 'profile_pic']
+    read_only_fields = ['id', 'username', 'email']
