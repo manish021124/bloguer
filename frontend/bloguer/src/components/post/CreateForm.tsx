@@ -50,7 +50,7 @@ const CreateForm: React.FC<CreateFormProps> = ({ onSubmit }) => {
             <Button type="submit" text="Create" />
           </div>
           {error && <p className="text-red-600">Error: {error}</p>}
-          {success && <p className="text-blue-600">Post updated successfully!</p>}
+          {success && <p className="text-blue-600">Post created successfully!</p>}
         </form>
       </div>
     </>

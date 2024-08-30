@@ -105,7 +105,7 @@ const EditForm: React.FC<EditFormProps> = ({ postId, initialData, onUpdate }) =>
           <Button text="Edit" />
         </div>
         {error && <p className="text-red-600">Error: {error}</p>}
-        {success && <p className="text-blue-600">Post updated successfully!</p>}
+        {success && <p className="text-blue-600">Post edited successfully!</p>}
       </form>
     </div>
     ) : (
