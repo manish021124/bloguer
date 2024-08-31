@@ -5,8 +5,8 @@ import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 import { useAppSelector } from "@/lib/hooks"
 import UserDetail from "@/components/user/UserDetail"
-import fetchUser from '../detail'
-import { UserProps } from '../detail'
+import fetchUser from './detail'
+import { UserProps } from './detail'
 
 const User: React.FC = () => {
   const router = useRouter()

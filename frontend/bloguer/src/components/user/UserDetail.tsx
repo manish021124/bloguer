@@ -1,10 +1,10 @@
 'use client'
 
 import { useRouter } from "next/navigation"
-import { ChangeEvent, FormEvent, useEffect, useState } from "react"
+import { ChangeEvent, FormEvent, useState } from "react"
 import Button from "@/components/Button"
-import editUser from "@/app/user/edit"
-import { UserProps } from "@/app/user/detail"
+import editUser from "@/app/user/profile/edit"
+import { UserProps } from "@/app/user/profile/detail"
 
 interface UserDetailProps {
   user: UserProps

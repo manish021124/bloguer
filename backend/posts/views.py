@@ -4,11 +4,20 @@ from .models import Post, CustomUser
 from .serializers import PostSerializer, CustomUserSerialzer
 from .permissions import IsAuthorOrReadOnly
 
-# Create your views here.
 class PostViewSet(viewsets.ModelViewSet):
   permission_classes = [IsAuthorOrReadOnly]
   queryset = Post.objects.all()
   serializer_class = PostSerializer
+
+  def list(self, request, *args, **kwargs):
+    return super().list(request, *args, **kwargs)
+
+  def list_user_posts(self, request, *args, **kwargs):
+    self.queryset = self.queryset.filter(author=request.user)
+    return super().list(request, *args, **kwargs)
+  
+  def perform_create(self, serializer):
+    serializer.save(author=self.request.user)
 
 
 class CustomUserViewSet(viewsets.ModelViewSet):
