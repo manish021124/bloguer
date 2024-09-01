@@ -4,7 +4,7 @@ from django.conf import settings
 
 
 class CustomUser(AbstractUser):
-  profile_pic = models.ImageField(upload_to='profiles/', blank=True, null=True)
+  profile_pic = models.ImageField(upload_to='profiles/', default='profiles/default.png', blank=True, null=True)
 
   
 class Post(models.Model):
