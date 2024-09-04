@@ -5,15 +5,16 @@ import { csrAxiosInstance } from "@/lib/axiosInstance"
 import { AxiosError } from "axios"
 import { refreshAccessToken } from "@/app/auth/login/loginService"
 
-const editUser = async (userData: UserProps): Promise<UserProps> => {
+const editUser = async (userData: FormData): Promise<UserProps> => {
   const accessToken = localStorage.getItem('access_token')
 
   if (!accessToken) throw new Error("User not authenticated")
 
   try {
-    const response = await csrAxiosInstance.patch<UserProps>(`profile/${userData.id}/`, userData, {
+    const response = await csrAxiosInstance.patch<UserProps>(`profile/${userData.get('id')}/`, userData, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
+        'Content-Type': 'multipart/form-data',
       },
     })
     return response.data
@@ -23,9 +24,10 @@ const editUser = async (userData: UserProps): Promise<UserProps> => {
         const newAccessToken = await refreshAccessToken()
 
         if (newAccessToken) {
-          const retryResponse = await csrAxiosInstance.patch<UserProps>(`profile/${userData.id}/`, userData, {
+          const retryResponse = await csrAxiosInstance.patch<UserProps>(`profile/${userData.get('id')}/`, userData, {
             headers: {
               Authorization: `Bearer ${newAccessToken}`,
+              'Content-Type': 'multipart/form-data',
             },
           })
           return retryResponse.data
