@@ -3,16 +3,15 @@
 import { csrAxiosInstance } from "@/lib/axiosInstance"
 import { AxiosError } from "axios"
 import { refreshAccessToken } from "@/app/auth/login/loginService"
-import { Post } from "@/lib/features/postSlice"
+import { PostProps } from "@/lib/features/postSlice"
 
-
-const fetchUserPosts = async (): Promise<Post[]> => {
+const fetchUserPosts = async (): Promise<PostProps[]> => {
   const accessToken = localStorage.getItem('access_token')
 
   if (!accessToken) throw new Error("User not authenticated")
 
   try {
-    const response = await csrAxiosInstance.get<Post[]>('my-posts/', {
+    const response = await csrAxiosInstance.get<PostProps[]>('my-posts/', {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
@@ -24,7 +23,7 @@ const fetchUserPosts = async (): Promise<Post[]> => {
         const newAccessToken = await refreshAccessToken()
 
         if (newAccessToken) {
-          const retryResponse = await csrAxiosInstance.get<Post[]>('my-posts/', {
+          const retryResponse = await csrAxiosInstance.get<PostProps[]>('my-posts/', {
             headers: {
               Authorization: `Bearer ${newAccessToken}`,
             },

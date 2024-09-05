@@ -10,7 +10,7 @@ export interface UserProps {
   email: string
   first_name: string | ''
   last_name: string | ''
-  profile_pic: string | null
+  profile_pic: string | undefined
 }
 
 const fetchUser = async (): Promise<UserProps> => {

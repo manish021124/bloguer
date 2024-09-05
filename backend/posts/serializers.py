@@ -3,6 +3,7 @@ from .models import Post, CustomUser
 
 class PostSerializer(serializers.ModelSerializer):
   author_name = serializers.CharField(source='author.username', read_only=True)
+  author_profile_pic = serializers.ImageField(source='author.profile_pic', read_only=True)
 
   class Meta:
     model = Post

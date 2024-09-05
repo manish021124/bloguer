@@ -4,13 +4,13 @@ import { csrAxiosInstance } from "@/lib/axiosInstance";
 import { setPosts } from "@/lib/features/postSlice";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { RootState } from "@/lib/store";
-import Link from "next/link";
 import { useEffect } from "react";
-import { Post } from "@/lib/features/postSlice";
+import { PostProps } from "@/lib/features/postSlice";
+import Post from "./Post";
 
-async function fetchPosts(): Promise<Post[]> {
+async function fetchPosts(): Promise<PostProps[]> {
   try {
-    const response = await csrAxiosInstance.get<Post[]>('post/')
+    const response = await csrAxiosInstance.get<PostProps[]>('post/')
     return response.data
   } catch (error) {
     throw new Error('Error fetching posts: ' + (error as Error).message)
@@ -44,21 +44,9 @@ const PostsList = () => {
         <ul className="flex flex-col gap-y-4">
           {posts.length > 0 ? (
             posts.map(post => (
-              <div className="p-3 bg-[#1b1f23] rounded-md" key={post.id}>
-                <li>
-                  <div className="pb-3">
-                    <Link href={`/post/${post.id}`}>
-                      <h3>{post.title}</h3>
-                    </Link>
-                    <div className="text-xs font-light flex gap-x-1">
-                      <span>{post.author_name}</span>
-                      <span>.</span>
-                      <span>{post.created_at}</span>
-                    </div>
-                  </div>
-                  <p className="text-sm text-justify">{post.content}</p>
-                </li>
-              </div>
+              <li key={post.id}>
+                <Post post={post} />
+              </li>
             ))
           ) : (
             <p className="text-center">No posts available.</p>

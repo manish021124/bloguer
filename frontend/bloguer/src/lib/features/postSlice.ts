@@ -1,9 +1,10 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 
-export interface Post {
+export interface PostProps {
   id: number
   author: number
   author_name: string
+  author_profile_pic: string | undefined
   title: string
   content: string
   created_at: string
@@ -11,7 +12,7 @@ export interface Post {
 }
 
 export interface PostState {
-  posts: Post[]
+  posts: PostProps[]
 }
 
 const initialState: PostState = {
@@ -22,10 +23,10 @@ export const postSlice = createSlice({
   name: 'posts',
   initialState,
   reducers: {
-    createPost: (state, action: PayloadAction<Post>) => {
+    createPost: (state, action: PayloadAction<PostProps>) => {
       state.posts.push(action.payload)
     },
-    editPost: (state, action: PayloadAction<Post>) => {
+    editPost: (state, action: PayloadAction<PostProps>) => {
       const index = state.posts.findIndex(post => post.id === action.payload.id)
       if (index !== -1) {
         state.posts[index] = action.payload
@@ -34,7 +35,7 @@ export const postSlice = createSlice({
     deletePost: (state, action: PayloadAction<number>) => {
       state.posts = state.posts.filter(post => post.id !== action.payload)
     },
-    setPosts: (state, action: PayloadAction<Post[]>) => {
+    setPosts: (state, action: PayloadAction<PostProps[]>) => {
       state.posts = action.payload
     },
   },
