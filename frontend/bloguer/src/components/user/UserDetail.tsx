@@ -77,7 +77,7 @@ export default function UserDetail({ user, setUser }: UserDetailProps) {
             <p>{user.email}</p>
           </div>
         </div>
-        <form encType="multipart/form-data" className="flex flex-col gap-y-4">
+        <form encType="multipart/form-data" className="flex flex-col gap-y-4" onSubmit={handleSubmit}>
           <div>
             <label className="me-8">First Name</label>
             <input type="text" name="first_name" value={user.first_name} onChange={handleInputChange} className="h-9 px-2 ml-2 bg-transparent border border-white rounded-lg" />
@@ -91,7 +91,7 @@ export default function UserDetail({ user, setUser }: UserDetailProps) {
             <input type="file" name="profile_pic" onChange={handleFileChange} className="h-9 px-2 ml-2 " />
           </div>
           <div className="flex justify-center gap-x-3">
-            <Button text="Edit" onClick={handleSubmit} />
+            <Button text="Edit" type="submit" />
             <Button text="Delete" className="bg-red-700 hover:bg-red-600" />
           </div>
           {error && <p className="text-red-600">Error: {error}</p>}
