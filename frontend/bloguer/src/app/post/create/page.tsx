@@ -1,7 +1,7 @@
 'use client'
 
 import { useAppDispatch, useAppSelector } from "@/lib/hooks"
-import { Post, createPost } from "@/lib/features/postSlice"
+import { PostProps, createPost } from "@/lib/features/postSlice"
 import { csrAxiosInstance } from "@/lib/axiosInstance"
 import { AxiosError } from "axios"
 import { refreshAccessToken } from "@/app/auth/login/loginService"
@@ -27,7 +27,7 @@ const CreatePage: React.FC = () => {
     if (!accessToken) throw new Error("User not authenticated")
 
     try {
-      const response = await csrAxiosInstance.post<Post>('post/', postData, {
+      const response = await csrAxiosInstance.post<PostProps>('post/', postData, {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },
@@ -39,7 +39,7 @@ const CreatePage: React.FC = () => {
           const newAccessToken = await refreshAccessToken()
 
           if (newAccessToken) {
-            const retryResponse = await csrAxiosInstance.post<Post>('post/', postData, {
+            const retryResponse = await csrAxiosInstance.post<PostProps>('post/', postData, {
               headers: {
                 Authorization: `Bearer ${newAccessToken}`,
               },

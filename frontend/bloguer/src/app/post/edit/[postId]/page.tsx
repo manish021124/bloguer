@@ -3,7 +3,7 @@
 import EditForm from "@/components/post/EditForm";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { Post, editPost } from "@/lib/features/postSlice";
+import { PostProps, editPost } from "@/lib/features/postSlice";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { RootState } from "@/lib/store";
 import { editPost as editPostBackend } from "@/components/post/EditForm";
@@ -38,7 +38,7 @@ const EditPage = () => {
   const handleUpdate = async (updatedPostData: { title: string; content: string }) => {
     if (post) {
       try {
-        const updatedPost: Post ={
+        const updatedPost: PostProps ={
           ...post,
           title: updatedPostData.title,
           content: updatedPostData.content,
