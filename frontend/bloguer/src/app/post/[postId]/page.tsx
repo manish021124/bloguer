@@ -4,14 +4,14 @@ import { csrAxiosInstance } from "@/lib/axiosInstance";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { handleDelete } from "@/app/post/[postId]/delete";
-import { Post, setPosts } from "@/lib/features/postSlice";
+import { PostProps, setPosts } from "@/lib/features/postSlice";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { RootState } from "@/lib/store";
 import Button from "@/components/Button";
 
-async function fetchPost(postId: number): Promise<Post> {
+async function fetchPost(postId: number): Promise<PostProps> {
   try {
-    const response = await csrAxiosInstance.get<Post>(`post/${postId}/`)
+    const response = await csrAxiosInstance.get<PostProps>(`post/${postId}/`)
     return response.data
   } catch (error) {
     throw new Error('Error fetching post: ' + (error as Error).message)
