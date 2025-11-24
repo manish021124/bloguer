@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 import os
+import dj_database_url
 from pathlib import Path
 from datetime import timedelta
 
@@ -87,14 +88,7 @@ WSGI_APPLICATION = 'bloguer.wsgi.application'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'postgres',
-        'USER': 'postgres',
-        'PASSWORD': 'postgres',
-        "HOST": 'db',
-        "PORT": 5432,
-    }
+    'default': dj_database_url.config(default=os.environ.get("DATABASE_URL"))
 }
 
 
