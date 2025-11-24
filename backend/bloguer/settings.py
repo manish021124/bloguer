@@ -29,7 +29,7 @@ SECRET_KEY = 'django-insecure-qwf383ee31^enz8#kp#s8^*##!keg*0-x5x8#lbt(#3z#3w^f3
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    "bloguer-production.up.railway.app/",
+    "bloguer-production.up.railway.app",
     "bloguer-beta.vercel.app",
     "localhost",
 ]
