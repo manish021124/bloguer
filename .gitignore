@@ -29,7 +29,8 @@ backend/postgres_data/
 *.log
 
 # Environment variables
-.env
+.env.local
+.env.production
 
 # Python
 ENV/
