@@ -91,7 +91,7 @@ export default function PostDetail() {
             </div>
           </div>
         ) : (
-          <p className="m-5 text-center">You don't have access to this post!</p>
+          <p className="m-5 text-center">You don&apos;t have access to this post!</p>
         )
       )}
     </>
