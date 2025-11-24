@@ -8,7 +8,6 @@ backend/venv/
 *.pyc
 backend/bloguer/__pycache__/
 backend/posts/__pycache__/
-backend/posts/migrations/
 *.db
 *.sqlite3
 local_settings.py

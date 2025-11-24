@@ -18,9 +18,6 @@ backend/postgres_data/
 *.sqlite3
 *.log
 
-# Ignore Django migration files
-**/migrations/
-
 # Ignore local development and IDE files
 .vscode/
 
