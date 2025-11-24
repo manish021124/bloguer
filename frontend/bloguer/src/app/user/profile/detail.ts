@@ -19,7 +19,7 @@ const fetchUser = async (): Promise<UserProps> => {
   if (!accessToken) throw new Error("User not authenticated")
 
   try {
-    const response = await csrAxiosInstance.get<UserProps>('profile/', {
+    const response = await csrAxiosInstance.get<UserProps[]>('profile/', {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
@@ -32,7 +32,7 @@ const fetchUser = async (): Promise<UserProps> => {
         const newAccessToken = await refreshAccessToken()
 
         if (newAccessToken) {
-          const retryResponse = await csrAxiosInstance.get<UserProps>('profile/', {
+          const retryResponse = await csrAxiosInstance.get<UserProps[]>('profile/', {
             headers: {
               Authorization: `Bearer ${newAccessToken}`,
             },
