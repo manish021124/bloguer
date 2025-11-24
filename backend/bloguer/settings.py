@@ -25,9 +25,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-qwf383ee31^enz8#kp#s8^*##!keg*0-x5x8#lbt(#3z#3w^f3'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = [
+    "https://bloguer-production.up.railway.app/",
+    "localhost",
+]
 
 
 # Application definition
@@ -142,6 +145,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CORS_ORIGIN_WHITELIST = [
   'http://localhost:3000',
   'http://localhost:8000',
+  'https://bloguer-beta.vercel.app/',
 ]
 
 REST_FRAMEWORK = {
