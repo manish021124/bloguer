@@ -30,6 +30,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     "https://bloguer-production.up.railway.app/",
+    "https://bloguer-beta.vercel.app",
     "localhost",
 ]
 
